@@ -1,37 +1,37 @@
 package com.chat.websocketStudy.controller;
 
+
 import com.chat.websocketStudy.dto.ChatMessage;
-import com.chat.websocketStudy.dto.ChatRoom;
+import com.chat.websocketStudy.dto.ChatMessageDto;
+import com.chat.websocketStudy.service.ChatService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Random;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
-@RequiredArgsConstructor
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 public class ChatController {
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
 
-    // 1:1 메세지 발송
-    @MessageMapping("/send")
-    public void sendMessage(ChatRoom chatRoom, Message<ChatMessage> msg) throws Exception {
-        if (msg.getPayload().getType().equals("ANONYMOUSE")) {
-            Random random = new Random();
-            String anonymous = new String("익명의 커넥터" + random.ints().toString());
-            msg.getPayload().setSender(anonymous);
-        }
-        simpMessagingTemplate.send(chatRoom.getRoomId(), msg);
+    private final ChatService chatService;
+
+    @MessageMapping("/sendMessage")
+    @SendTo("/sub/api/chat")
+    public ChatMessageDto chat(@Payload ChatMessageDto chatMessage) {
+        return chatService.saveChatMessageToDB(chatMessage);
     }
 
-    // 전체 메세지 발송
-    @MessageMapping("/sendAll")
-    public void sendAllMessage(Message<ChatMessage> msg) throws Exception {
-        simpMessagingTemplate.send(msg);
-    }
 }

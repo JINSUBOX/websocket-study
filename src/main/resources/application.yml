@@ -1,4 +1,10 @@
 spring:
   data:
     mongodb:
-      port:
+      host: localhost
+      port: 8888
+#      authentication-database: admin
+#      username: jins
+#      password: 123
+#      database: websocketstudy
+      # uri: mongodb: //546.465.445:27017/qwerqwer

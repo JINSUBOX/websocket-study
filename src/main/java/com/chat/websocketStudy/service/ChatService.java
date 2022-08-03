@@ -1,23 +1,17 @@
 package com.chat.websocketStudy.service;
 
-import com.chat.websocketStudy.dto.ChatRoom;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.chat.websocketStudy.dto.ChatMessageDto;
+import com.chat.websocketStudy.repository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.util.*;
-
-@Slf4j
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class ChatService {
-    private final ObjectMapper objectMapper;
-    private Map<String, ChatRoom> chatRooms;
+    private final ChatMessageRepository chatMessageRepository;
 
+    public ChatMessageDto saveChatMessageToDB(ChatMessageDto chatMessageDto) {
+        return chatMessageDto;
+    }
 
 }
