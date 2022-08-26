@@ -1,5 +1,5 @@
 package com.chat.websocketStudy.repository;
 
+public class ChatRoomRepository {
 
-public interface ChatMessageRepository {
 }
