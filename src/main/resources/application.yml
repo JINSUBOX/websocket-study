@@ -1,13 +1,8 @@
-spring:
-  am
-  data:
-    mongodb:
-      host: localhost
-      port: 8888
-#      authentication-database: admin
-#      username: jins
-#      password: 123
-#      database: websocketstudy
-      # uri: mongodb: //546.465.445:27017/qwerqwer
 server:
   port: 8080
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
